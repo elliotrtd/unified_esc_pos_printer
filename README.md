@@ -20,7 +20,7 @@ A unified ESC/POS thermal printer package for Flutter. Supports USB, Bluetooth C
 
 ## Print Results
 
-![Print result](print_result.png)
+![Print result](https://raw.githubusercontent.com/elrizwiraswara/unified_esc_pos_printer/main/print_result.png)
 
 ## Platform Support
 
@@ -406,7 +406,7 @@ final ticket = Ticket(PaperSize.mm80, additionalProfile: profile);
 
 ## Example App
 
-<img src="example_app.png" width="600"/>
+<img src="https://raw.githubusercontent.com/elrizwiraswara/unified_esc_pos_printer/main/example_app.png" width="600"/>
 
 A full-featured demo app is included in the [`example/`](example/) directory. It demonstrates:
 
