@@ -157,8 +157,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'CAPABILITY DEMO',
+      align: PrintAlign.center,
       styles: const TextStyles(
-        align: PrintAlign.center,
         bold: true,
         height: TextSize.size2,
         width: TextSize.size2,
@@ -166,15 +166,16 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     );
     ticket.text(
       'unified_esc_pos_printer',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
 
     ticket.separator(char: '=');
 
     ticket.text(
       'TEXT STYLES',
+      align: PrintAlign.center,
       styles: const TextStyles(
-        align: PrintAlign.center,
         bold: true,
         underline: true,
       ),
@@ -204,7 +205,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'SIZE VARIATIONS',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.text(
       'Size 1 (default)',
@@ -231,25 +233,27 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'ALIGNMENT',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.text(
       'Left aligned',
-      styles: const TextStyles(align: PrintAlign.left),
+      align: PrintAlign.left,
     );
     ticket.text(
       'Center aligned',
-      styles: const TextStyles(align: PrintAlign.center),
+      align: PrintAlign.center,
     );
     ticket.text(
       'Right aligned',
-      styles: const TextStyles(align: PrintAlign.right),
+      align: PrintAlign.right,
     );
     ticket.emptyLines();
 
     ticket.text(
       'FONT TYPES',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.text(
       'Font A (default)',
@@ -267,7 +271,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
   void _addPart2(Ticket ticket) {
     ticket.text(
       'SEPARATORS',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
     ticket.separator(char: '=');
@@ -278,7 +283,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       '2-COLUMN TABLE',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
     ticket.row([
@@ -290,7 +296,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'Price',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right, bold: true),
+        align: PrintAlign.right,
+        styles: const TextStyles(bold: true),
       ),
     ]);
     ticket.separator();
@@ -302,7 +309,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '\$3.50',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -313,7 +320,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '\$4.25',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -324,7 +331,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '\$4.75',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.separator();
@@ -337,7 +344,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '\$12.50',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right, bold: true),
+        align: PrintAlign.right,
+        styles: const TextStyles(bold: true),
       ),
     ]);
 
@@ -345,7 +353,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       '3-COLUMN TABLE',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
     ticket.row([
@@ -357,12 +366,14 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'Qty',
         flex: 3,
-        styles: const TextStyles(align: PrintAlign.center, bold: true),
+        align: PrintAlign.center,
+        styles: const TextStyles(bold: true),
       ),
       PrintColumn(
         text: 'Total',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right, bold: true),
+        align: PrintAlign.right,
+        styles: const TextStyles(bold: true),
       ),
     ]);
     ticket.separator();
@@ -374,12 +385,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'x3',
         flex: 3,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$2.97',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -390,12 +401,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'x6',
         flex: 3,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$1.50',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -406,12 +417,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'x2',
         flex: 3,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$3.98',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.separator();
@@ -424,7 +435,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '\$8.45',
         flex: 1,
-        styles: const TextStyles(align: PrintAlign.right, bold: true),
+        align: PrintAlign.right,
+        styles: const TextStyles(bold: true),
       ),
     ]);
 
@@ -432,7 +444,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       '4-COLUMN TABLE',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
     ticket.row([
@@ -449,12 +462,14 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'Qty',
         flex: 2,
-        styles: const TextStyles(align: PrintAlign.center, bold: true),
+        align: PrintAlign.center,
+        styles: const TextStyles(bold: true),
       ),
       PrintColumn(
         text: 'Price',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right, bold: true),
+        align: PrintAlign.right,
+        styles: const TextStyles(bold: true),
       ),
     ]);
     ticket.separator();
@@ -470,12 +485,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '10',
         flex: 2,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$99.90',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -490,12 +505,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '5',
         flex: 2,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$74.95',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.row([
@@ -510,12 +525,12 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: '5',
         flex: 2,
-        styles: const TextStyles(align: PrintAlign.center),
+        align: PrintAlign.center,
       ),
       PrintColumn(
         text: '\$74.95',
         flex: 4,
-        styles: const TextStyles(align: PrintAlign.right),
+        align: PrintAlign.right,
       ),
     ]);
     ticket.separator();
@@ -527,7 +542,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
   Future<void> _addPart3(Ticket ticket) async {
     ticket.text(
       'MULTILINGUAL TEXT',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
 
@@ -598,7 +614,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
   Future<void> _addPart4(Ticket ticket) async {
     ticket.text(
       'TEXT RASTER STYLES',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
 
@@ -697,7 +714,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
   void _addPart5(Ticket ticket) {
     ticket.text(
       'BARCODES',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
 
@@ -751,7 +769,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
   void _addPart6(Ticket ticket) {
     ticket.text(
       'QR CODES',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
 
@@ -772,7 +791,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'RASTER IMAGE',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.separator();
 
@@ -803,7 +823,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     }
     ticket.text(
       'Gradient (dithered):',
-      styles: const TextStyles(align: PrintAlign.center),
+      align: PrintAlign.center,
     );
     ticket.imageRaster(gradient, align: PrintAlign.center);
 
@@ -811,7 +831,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'BEEP TEST',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.beep(n: 5, duration: BeepDuration.beep100ms);
 
@@ -819,7 +840,8 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.text(
       'OPEN CASH DRAWER TEST',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.openCashDrawer();
 
@@ -830,15 +852,16 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.separator(char: '=');
     ticket.text(
       'unified_esc_pos_printer',
-      styles: const TextStyles(align: PrintAlign.center, bold: true),
+      align: PrintAlign.center,
+      styles: const TextStyles(bold: true),
     );
     ticket.text(
       'Capabilities Demonstrated!',
-      styles: const TextStyles(align: PrintAlign.center),
+      align: PrintAlign.center,
     );
     ticket.text(
       DateTime.now().toString().substring(0, 19),
-      styles: const TextStyles(align: PrintAlign.center),
+      align: PrintAlign.center,
     );
     ticket.separator(char: '=');
   }

@@ -1,5 +1,6 @@
 import 'dart:typed_data' show Uint8List;
 
+import 'enums.dart';
 import 'text_styles.dart';
 
 /// A single column in a [row] print call.
@@ -30,6 +31,7 @@ class PrintColumn {
     this.text = '',
     this.textEncoded,
     this.flex = 1,
+    this.align = PrintAlign.left,
     this.styles = const TextStyles(),
   }) {
     if (flex < 1) {
@@ -44,5 +46,6 @@ class PrintColumn {
   String text;
   Uint8List? textEncoded;
   int flex;
+  PrintAlign align;
   TextStyles styles;
 }

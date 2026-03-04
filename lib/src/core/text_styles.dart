@@ -7,7 +7,6 @@ class TextStyles {
     this.reverse = false,
     this.underline = false,
     this.turn90 = false,
-    this.align = PrintAlign.left,
     this.height = TextSize.size1,
     this.width = TextSize.size1,
     this.fontType,
@@ -20,7 +19,6 @@ class TextStyles {
     this.reverse = false,
     this.underline = false,
     this.turn90 = false,
-    this.align = PrintAlign.left,
     this.height = TextSize.size1,
     this.width = TextSize.size1,
     this.fontType = FontType.fontA,
@@ -34,7 +32,6 @@ class TextStyles {
   /// Rotate text 90° clockwise (if supported by the printer).
   final bool turn90;
 
-  final PrintAlign align;
   final TextSize height;
   final TextSize width;
 
@@ -49,7 +46,6 @@ class TextStyles {
     bool? reverse,
     bool? underline,
     bool? turn90,
-    PrintAlign? align,
     TextSize? height,
     TextSize? width,
     FontType? fontType,
@@ -60,7 +56,6 @@ class TextStyles {
       reverse: reverse ?? this.reverse,
       underline: underline ?? this.underline,
       turn90: turn90 ?? this.turn90,
-      align: align ?? this.align,
       height: height ?? this.height,
       width: width ?? this.width,
       fontType: fontType ?? this.fontType,

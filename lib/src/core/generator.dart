@@ -245,6 +245,7 @@ class Generator {
   /// Reset only text styles to size-1 defaults.
   List<int> clearStyle() => setStyles(
         const TextStyles(height: TextSize.size1, width: TextSize.size1),
+        align: PrintAlign.left,
       );
 
   /// Emit the ESC/POS command to select [codeTable].
@@ -262,13 +263,19 @@ class Generator {
     return font == FontType.fontB ? cFontB.codeUnits : cFontA.codeUnits;
   }
 
+  List<int> _setAlign(PrintAlign align) {
+    return codec.encode(
+      align == PrintAlign.left
+          ? cAlignLeft
+          : (align == PrintAlign.center ? cAlignCenter : cAlignRight),
+    );
+  }
+
   /// Apply [styles], emitting all relevant ESC/POS style commands.
-  List<int> setStyles(TextStyles styles) {
+  List<int> setStyles(TextStyles styles, {PrintAlign? align}) {
     List<int> bytes = [];
 
-    bytes += codec.encode(styles.align == PrintAlign.left
-        ? cAlignLeft
-        : (styles.align == PrintAlign.center ? cAlignCenter : cAlignRight));
+    if (align != null) bytes += _setAlign(align);
     bytes += styles.bold ? cBoldOn.codeUnits : cBoldOff.codeUnits;
     bytes += styles.turn90 ? cTurn90On.codeUnits : cTurn90Off.codeUnits;
     bytes += styles.reverse ? cReverseOn.codeUnits : cReverseOff.codeUnits;
@@ -305,6 +312,7 @@ class Generator {
   List<int> text(
     String text, {
     TextStyles styles = const TextStyles(),
+    PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
   }) {
@@ -312,6 +320,7 @@ class Generator {
       ..._text(
         _encode(text),
         styles: styles,
+        align: align,
         maxCharsPerLine: maxCharsPerLine,
       ),
       ...emptyLines(linesAfter + 1),
@@ -322,11 +331,17 @@ class Generator {
   List<int> textEncoded(
     Uint8List textBytes, {
     TextStyles styles = const TextStyles(),
+    PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
   }) {
     return [
-      ..._text(textBytes, styles: styles, maxCharsPerLine: maxCharsPerLine),
+      ..._text(
+        textBytes,
+        styles: styles,
+        align: align,
+        maxCharsPerLine: maxCharsPerLine,
+      ),
       ...emptyLines(linesAfter + 1),
     ];
   }
@@ -442,6 +457,7 @@ class Generator {
           PrintColumn(
             textEncoded: encoded.sublist(maxCharsNb),
             flex: cols[i].flex,
+            align: cols[i].align,
             styles: cols[i].styles,
           ),
         );
@@ -453,6 +469,7 @@ class Generator {
           PrintColumn(
             text: '',
             flex: cols[i].flex,
+            align: cols[i].align,
             styles: cols[i].styles,
           ),
         );
@@ -461,6 +478,7 @@ class Generator {
       bytes += _text(
         encoded,
         styles: cols[i].styles,
+        align: cols[i].align,
         fromPx: fromPx,
         toPx: toPx,
       );
@@ -485,7 +503,7 @@ class Generator {
     int? maxHeight,
   }) {
     List<int> bytes = [];
-    bytes += setStyles(const TextStyles().copyWith(align: align));
+    bytes += _setAlign(align);
 
     imgSrc = _constrainImage(imgSrc, maxWidth, maxHeight);
 
@@ -546,7 +564,7 @@ class Generator {
     int? maxHeight,
   }) {
     List<int> bytes = [];
-    bytes += setStyles(const TextStyles().copyWith(align: align));
+    bytes += _setAlign(align);
 
     image = _constrainImage(image, maxWidth, maxHeight);
 
@@ -611,7 +629,7 @@ class Generator {
     List<int> bytes = [];
     final List<int> header = cBarcodePrint.codeUnits + [type.value];
 
-    bytes += setStyles(const TextStyles().copyWith(align: align));
+    bytes += _setAlign(align);
     bytes += cBarcodeSelectPos.codeUnits + [textPosition.value];
     if (textFont != null) {
       bytes += cBarcodeSelectFont.codeUnits + [textFont.value];
@@ -638,7 +656,7 @@ class Generator {
     QRCorrection cor = QRCorrection.L,
   }) {
     return [
-      ...setStyles(const TextStyles().copyWith(align: align)),
+      ..._setAlign(align),
       ...QRCode(text, size, cor).bytes,
     ];
   }
@@ -673,6 +691,7 @@ class Generator {
   List<int> _text(
     Uint8List textBytes, {
     TextStyles styles = const TextStyles(),
+    PrintAlign align = PrintAlign.left,
     int? fromPx,
     int? toPx,
     int? maxCharsPerLine,
@@ -685,9 +704,9 @@ class Generator {
 
       if (toPx != null) {
         final textLen = textBytes.length * charWidth;
-        if (styles.align == PrintAlign.right) {
+        if (align == PrintAlign.right) {
           pos = toPx - textLen;
-        } else if (styles.align == PrintAlign.center) {
+        } else if (align == PrintAlign.center) {
           pos = fromPx + (toPx - fromPx) / 2 - textLen / 2;
         }
         if (pos < 0) pos = 0;
@@ -701,7 +720,7 @@ class Generator {
       );
     }
 
-    bytes += setStyles(styles);
+    bytes += setStyles(styles, align: align);
     bytes += textBytes;
     return bytes;
   }

@@ -103,8 +103,8 @@ await manager.connect(printers.first);
 final ticket = await Ticket.create(PaperSize.mm80);
 ticket.text(
   'Hello, Printer!',
+  align: PrintAlign.center,
   styles: const TextStyles(
-    align: PrintAlign.center,
     bold: true,
     height: TextSize.size2,
     width: TextSize.size2,
@@ -134,9 +134,9 @@ ticket.text('Large', styles: const TextStyles(height: TextSize.size3, width: Tex
 ticket.text('Tall only', styles: const TextStyles(height: TextSize.size3, width: TextSize.size1));
 
 // Alignment
-ticket.text('Left', styles: const TextStyles(align: PrintAlign.left));
-ticket.text('Center', styles: const TextStyles(align: PrintAlign.center));
-ticket.text('Right', styles: const TextStyles(align: PrintAlign.right));
+ticket.text('Left', align: PrintAlign.left);
+ticket.text('Center', align: PrintAlign.center);
+ticket.text('Right', align: PrintAlign.right);
 
 // Font selection
 ticket.text('Font A', styles: const TextStyles(fontType: FontType.fontA));
@@ -154,15 +154,25 @@ ticket.row([
   PrintColumn(
     text: '\$3.50',
     flex: 1,
-    styles: const TextStyles(align: PrintAlign.right),
+    align: PrintAlign.right,
   ),
 ]);
 
 // 3-column layout with header
 ticket.row([
   PrintColumn(text: 'Item', flex: 5, styles: const TextStyles(bold: true)),
-  PrintColumn(text: 'Qty', flex: 3, styles: const TextStyles(align: PrintAlign.center, bold: true)),
-  PrintColumn(text: 'Total', flex: 4, styles: const TextStyles(align: PrintAlign.right, bold: true)),
+  PrintColumn(
+    text: 'Qty',
+    flex: 3,
+    align: PrintAlign.center,
+    styles: const TextStyles(bold: true),
+  ),
+  PrintColumn(
+    text: 'Total',
+    flex: 4,
+    align: PrintAlign.right,
+    styles: const TextStyles(bold: true),
+  ),
 ]);
 ```
 
@@ -375,7 +385,7 @@ await manager.printBytes([0x1B, 0x40]);
 | `PrinterManager`         | Unified facade for scanning, connecting, printing, and cash drawer control                                 |
 | `Ticket`                 | High-level ticket builder — text, images, barcodes, QR codes, tables                                       |
 | `Generator`              | Low-level ESC/POS command generator returning raw byte sequences                                           |
-| `TextStyles`             | Immutable text style configuration (bold, underline, align, size, font)                                    |
+| `TextStyles`             | Immutable text style configuration (bold, underline, size, font)                                           |
 | `PrintColumn`            | Column definition for table rows with flex-based sizing                                                    |
 | `CapabilityProfile`      | Printer capability and code page profile loader                                                            |
 | `PrinterDevice`          | Abstract base for `NetworkPrinterDevice`, `BlePrinterDevice`, `BluetoothPrinterDevice`, `UsbPrinterDevice` |

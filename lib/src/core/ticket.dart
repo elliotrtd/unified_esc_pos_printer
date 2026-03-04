@@ -23,7 +23,7 @@ import 'text_styles.dart';
 /// ```dart
 /// final profile = await CapabilityProfile.load();
 /// final ticket = Ticket(PaperSize.mm80, profile);
-/// ticket.text('Hello!', styles: TextStyles(bold: true, align: PrintAlign.center));
+/// ticket.text('Hello!', styles: TextStyles(bold: true), align: PrintAlign.center);
 /// await ticket.textRaster('欢迎光临！');
 /// await ticket.textRaster('مرحبا!', textDirection: ui.TextDirection.rtl);
 /// ticket.hr();
@@ -92,18 +92,20 @@ class Ticket {
   /// For multi-script text — Chinese, Japanese, Korean, Arabic, Devanagari,
   /// Thai, Cyrillic, etc. — use [textRaster] instead.
   ///
-  /// - [styles] — bold, underline, font, alignment, and other ESC/POS styles.
+  /// - [styles] — bold, underline, font, and other ESC/POS styles.
+  /// - [align] — horizontal alignment of the text.
   /// - [linesAfter] — blank lines emitted after the text.
   /// - [maxCharsPerLine] — wraps text at this column count.
   ///
   /// Example:
   /// ```dart
   /// ticket.text('Hello!', styles: TextStyles(bold: true));
-  /// ticket.text('Total: \$9.99', styles: TextStyles(align: PrintAlign.right));
+  /// ticket.text('Total: \$9.99', align: PrintAlign.right);
   /// ```
   void text(
     String text, {
     TextStyles styles = const TextStyles(),
+    PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
   }) {
@@ -111,6 +113,7 @@ class Ticket {
       _gen.text(
         text,
         styles: styles,
+        align: align,
         linesAfter: linesAfter,
         maxCharsPerLine: maxCharsPerLine,
       ),
@@ -166,6 +169,7 @@ class Ticket {
   void textEncoded(
     Uint8List textBytes, {
     TextStyles styles = const TextStyles(),
+    PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
   }) {
@@ -173,6 +177,7 @@ class Ticket {
       _gen.textEncoded(
         textBytes,
         styles: styles,
+        align: align,
         linesAfter: linesAfter,
         maxCharsPerLine: maxCharsPerLine,
       ),
