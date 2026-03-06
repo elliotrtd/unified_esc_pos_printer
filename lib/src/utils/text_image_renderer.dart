@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/painting.dart' show TextStyle;
 import 'package:image/image.dart' as img;
 
-
 /// Renders [text] using Flutter's text engine and returns **one [img.Image]
 /// per line of text**.
 ///
@@ -19,7 +18,7 @@ import 'package:image/image.dart' as img;
 ///
 /// Parameters:
 /// - [text] — the text to render; may wrap across multiple lines.
-/// - [textStyle] — [TextStyle] controlling font size, weight, decoration,
+/// - [style] — [TextStyle] controlling font size, weight, decoration,
 ///   etc. When omitted or when [TextStyle.fontSize] is `null`, the font
 ///   size defaults to **24 pt**. The foreground colour defaults to black.
 /// - [maxWidth] — printable dot-width of the paper (default 576 for 80 mm).
@@ -33,39 +32,39 @@ import 'package:image/image.dart' as img;
 /// // With custom style:
 /// await ticket.textRaster(
 ///   '欢迎光临！',
-///   textStyle: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+///   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
 /// );
 /// ```
 Future<List<img.Image>> renderTextLinesAsImages(
   String text, {
-  TextStyle? textStyle,
+  TextStyle? style,
   double maxWidth = 576,
   ui.TextDirection textDirection = ui.TextDirection.ltr,
 }) async {
-  final double effectiveFontSize = textStyle?.fontSize ?? 24;
+  final double effectiveFontSize = style?.fontSize ?? 24;
   final paragraph = (ui.ParagraphBuilder(
     ui.ParagraphStyle(textDirection: textDirection),
   )
         ..pushStyle(
           ui.TextStyle(
-            color: textStyle?.color ?? const ui.Color(0xFF000000),
+            color: style?.color ?? const ui.Color(0xFF000000),
             fontSize: effectiveFontSize,
-            fontWeight: textStyle?.fontWeight,
-            fontStyle: textStyle?.fontStyle,
-            decoration: textStyle?.decoration,
-            decorationColor: textStyle?.decorationColor,
-            decorationStyle: textStyle?.decorationStyle,
-            decorationThickness: textStyle?.decorationThickness,
-            letterSpacing: textStyle?.letterSpacing,
-            wordSpacing: textStyle?.wordSpacing,
-            height: textStyle?.height,
-            locale: textStyle?.locale,
-            background: textStyle?.background,
-            foreground: textStyle?.foreground,
-            shadows: textStyle?.shadows,
-            fontFeatures: textStyle?.fontFeatures,
-            fontFamily: textStyle?.fontFamily,
-            fontFamilyFallback: textStyle?.fontFamilyFallback,
+            fontWeight: style?.fontWeight,
+            fontStyle: style?.fontStyle,
+            decoration: style?.decoration,
+            decorationColor: style?.decorationColor,
+            decorationStyle: style?.decorationStyle,
+            decorationThickness: style?.decorationThickness,
+            letterSpacing: style?.letterSpacing,
+            wordSpacing: style?.wordSpacing,
+            height: style?.height,
+            locale: style?.locale,
+            background: style?.background,
+            foreground: style?.foreground,
+            shadows: style?.shadows,
+            fontFeatures: style?.fontFeatures,
+            fontFamily: style?.fontFamily,
+            fontFamilyFallback: style?.fontFamilyFallback,
           ),
         )
         ..addText(text))

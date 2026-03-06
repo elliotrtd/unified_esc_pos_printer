@@ -10,7 +10,7 @@ import 'commands.dart';
 import 'enums.dart';
 import 'print_column.dart';
 import 'qrcode.dart';
-import 'text_styles.dart';
+import 'print_text_styles.dart';
 
 /// Low-level ESC/POS byte-command generator.
 ///
@@ -38,16 +38,16 @@ class Generator {
     };
   }
 
-  double _getCharWidth(TextStyles styles, {int? maxCharsPerLine}) {
-    int charsPerLine = _getCharsPerLine(styles, maxCharsPerLine);
+  double _getCharWidth(PrintTextStyle style, {int? maxCharsPerLine}) {
+    int charsPerLine = _getCharsPerLine(style, maxCharsPerLine);
     double charWidth = (paperSize.widthPixels / charsPerLine);
-    return charWidth * styles.width.value;
+    return charWidth * style.width.value;
   }
 
-  int _getCharsPerLine(TextStyles styles, int? maxCharsPerLine) {
+  int _getCharsPerLine(PrintTextStyle style, int? maxCharsPerLine) {
     if (maxCharsPerLine != null) return maxCharsPerLine;
-    if (styles.fontType != null) return _getMaxCharsPerLine(styles.fontType);
-    return maxCharsPerLine ?? _getMaxCharsPerLine(styles.fontType);
+    if (style.fontType != null) return _getMaxCharsPerLine(style.fontType);
+    return maxCharsPerLine ?? _getMaxCharsPerLine(style.fontType);
   }
 
   Uint8List _encode(String text) {
@@ -242,9 +242,9 @@ class Generator {
   /// Reset printer to factory defaults (ESC @).
   List<int> reset() => [...cInit.codeUnits];
 
-  /// Reset only text styles to size-1 defaults.
+  /// Reset only text style to size-1 defaults.
   List<int> clearStyle() => setStyles(
-        const TextStyles(height: TextSize.size1, width: TextSize.size1),
+        const PrintTextStyle(height: TextSize.size1, width: TextSize.size1),
         align: PrintAlign.left,
       );
 
@@ -271,32 +271,32 @@ class Generator {
     );
   }
 
-  /// Apply [styles], emitting all relevant ESC/POS style commands.
-  List<int> setStyles(TextStyles styles, {PrintAlign? align}) {
+  /// Apply [style], emitting all relevant ESC/POS style commands.
+  List<int> setStyles(PrintTextStyle style, {PrintAlign? align}) {
     List<int> bytes = [];
 
     if (align != null) bytes += _setAlign(align);
-    bytes += styles.bold ? cBoldOn.codeUnits : cBoldOff.codeUnits;
-    bytes += styles.turn90 ? cTurn90On.codeUnits : cTurn90Off.codeUnits;
-    bytes += styles.reverse ? cReverseOn.codeUnits : cReverseOff.codeUnits;
+    bytes += style.bold ? cBoldOn.codeUnits : cBoldOff.codeUnits;
+    bytes += style.turn90 ? cTurn90On.codeUnits : cTurn90Off.codeUnits;
+    bytes += style.reverse ? cReverseOn.codeUnits : cReverseOff.codeUnits;
     bytes +=
-        styles.underline ? cUnderline1dot.codeUnits : cUnderlineOff.codeUnits;
+        style.underline ? cUnderline1dot.codeUnits : cUnderlineOff.codeUnits;
 
-    final FontType font = styles.fontType ?? FontType.fontA;
+    final FontType font = style.fontType ?? FontType.fontA;
     bytes += font == FontType.fontB ? cFontB.codeUnits : cFontA.codeUnits;
 
     bytes += Uint8List.fromList(
       List<int>.from(cSizeGSn.codeUnits)
-        ..add(TextSize.decSize(styles.height, styles.width)),
+        ..add(TextSize.decSize(style.height, style.width)),
     );
 
     // Always disable Kanji mode (no hardware multibyte encoding used).
     bytes += cKanjiOff.codeUnits;
 
-    if (styles.codeTable != null) {
+    if (style.codeTable != null) {
       bytes += Uint8List.fromList(
         List<int>.from(cCodeTable.codeUnits)
-          ..add(profile.getCodePageId(styles.codeTable)),
+          ..add(profile.getCodePageId(style.codeTable)),
       );
     }
 
@@ -308,10 +308,10 @@ class Generator {
     return [...cKanjiOff.codeUnits, ...cmd];
   }
 
-  /// Print [text] with optional [styles].
+  /// Print [text] with optional [style].
   List<int> text(
     String text, {
-    TextStyles styles = const TextStyles(),
+    PrintTextStyle style = const PrintTextStyle(),
     PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
@@ -319,7 +319,7 @@ class Generator {
     return [
       ..._text(
         _encode(text),
-        styles: styles,
+        style: style,
         align: align,
         maxCharsPerLine: maxCharsPerLine,
       ),
@@ -330,7 +330,7 @@ class Generator {
   /// Print pre-encoded bytes as text.
   List<int> textEncoded(
     Uint8List textBytes, {
-    TextStyles styles = const TextStyles(),
+    PrintTextStyle style = const PrintTextStyle(),
     PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
@@ -338,7 +338,7 @@ class Generator {
     return [
       ..._text(
         textBytes,
-        styles: styles,
+        style: style,
         align: align,
         maxCharsPerLine: maxCharsPerLine,
       ),
@@ -445,7 +445,7 @@ class Generator {
       final int toPx = (paperPx * runningFlex / totalFlex).round() -
           (isLastCol ? 0 : columnGap);
 
-      final double charWidth = _getCharWidth(cols[i].styles);
+      final double charWidth = _getCharWidth(cols[i].style);
       final int maxCharsNb = ((toPx - fromPx) / charWidth).floor();
 
       Uint8List encoded = cols[i].textEncoded != null
@@ -458,7 +458,7 @@ class Generator {
             textEncoded: encoded.sublist(maxCharsNb),
             flex: cols[i].flex,
             align: cols[i].align,
-            styles: cols[i].styles,
+            style: cols[i].style,
           ),
         );
 
@@ -470,14 +470,14 @@ class Generator {
             text: '',
             flex: cols[i].flex,
             align: cols[i].align,
-            styles: cols[i].styles,
+            style: cols[i].style,
           ),
         );
       }
 
       bytes += _text(
         encoded,
-        styles: cols[i].styles,
+        style: cols[i].style,
         align: cols[i].align,
         fromPx: fromPx,
         toPx: toPx,
@@ -690,7 +690,7 @@ class Generator {
   /// computed within the [fromPx]..[toPx] range.
   List<int> _text(
     Uint8List textBytes, {
-    TextStyles styles = const TextStyles(),
+    PrintTextStyle style = const PrintTextStyle(),
     PrintAlign align = PrintAlign.left,
     int? fromPx,
     int? toPx,
@@ -699,7 +699,7 @@ class Generator {
     List<int> bytes = [];
 
     if (fromPx != null) {
-      final charWidth = _getCharWidth(styles, maxCharsPerLine: maxCharsPerLine);
+      final charWidth = _getCharWidth(style, maxCharsPerLine: maxCharsPerLine);
       double pos = fromPx.toDouble();
 
       if (toPx != null) {
@@ -720,7 +720,7 @@ class Generator {
       );
     }
 
-    bytes += setStyles(styles, align: align);
+    bytes += setStyles(style, align: align);
     bytes += textBytes;
     return bytes;
   }

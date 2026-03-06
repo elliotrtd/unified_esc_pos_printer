@@ -158,7 +158,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'CAPABILITY DEMO',
       align: PrintAlign.center,
-      styles: const TextStyles(
+      style: const PrintTextStyle(
         bold: true,
         height: TextSize.size2,
         width: TextSize.size2,
@@ -167,7 +167,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'unified_esc_pos_printer',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
 
     ticket.separator(char: '=');
@@ -175,7 +175,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'TEXT STYLES',
       align: PrintAlign.center,
-      styles: const TextStyles(
+      style: const PrintTextStyle(
         bold: true,
         underline: true,
       ),
@@ -186,19 +186,19 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text('Normal text');
     ticket.text(
       'Bold text',
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.text(
       'Underline text',
-      styles: const TextStyles(underline: true),
+      style: const PrintTextStyle(underline: true),
     );
     ticket.text(
       'Reverse text',
-      styles: const TextStyles(reverse: true),
+      style: const PrintTextStyle(reverse: true),
     );
     ticket.text(
       'Bold + Underline',
-      styles: const TextStyles(bold: true, underline: true),
+      style: const PrintTextStyle(bold: true, underline: true),
     );
 
     ticket.emptyLines();
@@ -206,27 +206,32 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'SIZE VARIATIONS',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.text(
       'Size 1 (default)',
-      styles: const TextStyles(height: TextSize.size1, width: TextSize.size1),
+      style:
+          const PrintTextStyle(height: TextSize.size1, width: TextSize.size1),
     );
     ticket.text(
       'Size 2',
-      styles: const TextStyles(height: TextSize.size2, width: TextSize.size2),
+      style:
+          const PrintTextStyle(height: TextSize.size2, width: TextSize.size2),
     );
     ticket.text(
       'Size 3',
-      styles: const TextStyles(height: TextSize.size3, width: TextSize.size3),
+      style:
+          const PrintTextStyle(height: TextSize.size3, width: TextSize.size3),
     );
     ticket.text(
       'Tall only',
-      styles: const TextStyles(height: TextSize.size3, width: TextSize.size1),
+      style:
+          const PrintTextStyle(height: TextSize.size3, width: TextSize.size1),
     );
     ticket.text(
       'Wide only',
-      styles: const TextStyles(height: TextSize.size1, width: TextSize.size3),
+      style:
+          const PrintTextStyle(height: TextSize.size1, width: TextSize.size3),
     );
 
     ticket.emptyLines();
@@ -234,7 +239,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'ALIGNMENT',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.text(
       'Left aligned',
@@ -253,15 +258,15 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'FONT TYPES',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.text(
       'Font A (default)',
-      styles: const TextStyles(fontType: FontType.fontA),
+      style: const PrintTextStyle(fontType: FontType.fontA),
     );
     ticket.text(
       'Font B (smaller)',
-      styles: const TextStyles(fontType: FontType.fontB),
+      style: const PrintTextStyle(fontType: FontType.fontB),
     );
 
     ticket.emptyLines();
@@ -272,7 +277,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'SEPARATORS',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
     ticket.separator(char: '=');
@@ -284,20 +289,20 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       '2-COLUMN TABLE',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
     ticket.row([
       PrintColumn(
         text: 'Item',
         flex: 2,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Price',
         flex: 1,
         align: PrintAlign.right,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
     ]);
     ticket.separator();
@@ -339,13 +344,13 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'TOTAL',
         flex: 2,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: '\$12.50',
         flex: 1,
         align: PrintAlign.right,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
     ]);
 
@@ -354,26 +359,26 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       '3-COLUMN TABLE',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
     ticket.row([
       PrintColumn(
         text: 'Item',
         flex: 5,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Qty',
         flex: 3,
         align: PrintAlign.center,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Total',
         flex: 4,
         align: PrintAlign.right,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
     ]);
     ticket.separator();
@@ -430,13 +435,13 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
       PrintColumn(
         text: 'Grand Total',
         flex: 2,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: '\$8.45',
         flex: 1,
         align: PrintAlign.right,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
     ]);
 
@@ -445,31 +450,31 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       '4-COLUMN TABLE',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
     ticket.row([
       PrintColumn(
         text: '#',
         flex: 1,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Name',
         flex: 5,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Qty',
         flex: 2,
         align: PrintAlign.center,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
       PrintColumn(
         text: 'Price',
         flex: 4,
         align: PrintAlign.right,
-        styles: const TextStyles(bold: true),
+        style: const PrintTextStyle(bold: true),
       ),
     ]);
     ticket.separator();
@@ -543,35 +548,35 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'MULTILINGUAL TEXT',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
 
-    ticket.text('Chinese:', styles: const TextStyles(bold: true));
+    ticket.text('Chinese:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('欢迎光临，谢谢惠顾！');
     await ticket.textRaster('恭喜发财');
 
     ticket.emptyLines();
 
-    ticket.text('Japanese:', styles: const TextStyles(bold: true));
+    ticket.text('Japanese:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('ようこそ、ありがとう！');
     await ticket.textRaster('東山奈央はこの世界で一番かわいい');
 
     ticket.emptyLines();
 
-    ticket.text('Javanese:', styles: const TextStyles(bold: true));
+    ticket.text('Javanese:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('Sꦈꦒꦺꦤ꧀ꦒ꧀ ꦫwꦈꦲ꧀, ꦩꦠꦸꦂ ꦤꦸwꦈꦤ꧀!');
     await ticket.textRaster('ꦗwꦄ ꦄꦢꦭꦲ꧀ ꦏꦺꦴꦌꦤ꧀ꦠ꧀ꦗꦶ');
 
     ticket.emptyLines();
 
-    ticket.text('Korean:', styles: const TextStyles(bold: true));
+    ticket.text('Korean:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('환영합니다, 감사합니다!');
     await ticket.textRaster('최신 한국 드라마를 알려주세요');
 
     ticket.emptyLines();
 
-    ticket.text('Arabic:', styles: const TextStyles(bold: true));
+    ticket.text('Arabic:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'سلامت داتڠ، تريما کاسيه!',
       textDirection: TextDirection.rtl,
@@ -583,25 +588,25 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('Hindi:', styles: const TextStyles(bold: true));
+    ticket.text('Hindi:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('स्वागत है, धन्यवाद!');
     await ticket.textRaster('चला छैया छैया छैया');
 
     ticket.emptyLines();
 
-    ticket.text('Thai:', styles: const TextStyles(bold: true));
+    ticket.text('Thai:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('ยินดีต้อนรับ ขอบคุณ!');
     await ticket.textRaster('เช็กว่ายังออริและไม่แก้ไข');
 
     ticket.emptyLines();
 
-    ticket.text('Russian:', styles: const TextStyles(bold: true));
+    ticket.text('Russian:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('Добро пожаловать, спасибо!');
     await ticket.textRaster('За Родину Урааааа!');
 
     ticket.emptyLines();
 
-    ticket.text('European:', styles: const TextStyles(bold: true));
+    ticket.text('European:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('French: Bienvenue, merci à bientôt !');
     await ticket.textRaster('German: Willkommen, vielen Dank!');
     await ticket.textRaster('Spanish: ¡Bienvenidos, muchas gracias señor!');
@@ -615,43 +620,43 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'TEXT RASTER STYLES',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
 
-    ticket.text('Default (24 pt):', styles: const TextStyles(bold: true));
+    ticket.text('Default (24 pt):', style: const PrintTextStyle(bold: true));
     await ticket.textRaster('欢迎光临 · Welcome · Bienvenido');
 
     ticket.emptyLines();
 
-    ticket.text('Large (36 pt):', styles: const TextStyles(bold: true));
+    ticket.text('Large (36 pt):', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       '大きな文字 · 큰 글꼴',
-      textStyle: const TextStyle(fontSize: 36),
+      style: const TextStyle(fontSize: 36),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Bold:', styles: const TextStyles(bold: true));
+    ticket.text('Bold:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Bold — Gras — Negrita — 굵게',
-      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+      style: const TextStyle(fontWeight: FontWeight.bold),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Italic:', styles: const TextStyles(bold: true));
+    ticket.text('Italic:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Italic — Cursiva — 이탤릭',
-      textStyle: const TextStyle(fontStyle: FontStyle.italic),
+      style: const TextStyle(fontStyle: FontStyle.italic),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Bold + Italic:', styles: const TextStyles(bold: true));
+    ticket.text('Bold + Italic:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Bold Italic — بولد إيطاليك',
-      textStyle: const TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.italic,
       ),
@@ -659,31 +664,31 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('Underline:', styles: const TextStyles(bold: true));
+    ticket.text('Underline:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Underline · 밑줄 · 下線',
-      textStyle: const TextStyle(decoration: TextDecoration.underline),
+      style: const TextStyle(decoration: TextDecoration.underline),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Small (18 pt):', styles: const TextStyles(bold: true));
+    ticket.text('Small (18 pt):', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Small text — Petit texte — 소문자',
-      textStyle: const TextStyle(fontSize: 18),
+      style: const TextStyle(fontSize: 18),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Letter spacing:', styles: const TextStyles(bold: true));
+    ticket.text('Letter spacing:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'S P A C E D',
-      textStyle: const TextStyle(letterSpacing: 6),
+      style: const TextStyle(letterSpacing: 6),
     );
 
     ticket.emptyLines();
 
-    ticket.text('Center aligned:', styles: const TextStyles(bold: true));
+    ticket.text('Center aligned:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       '가운데 정렬 · Centré · 居中',
       align: PrintAlign.center,
@@ -691,7 +696,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('Right aligned:', styles: const TextStyles(bold: true));
+    ticket.text('Right aligned:', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'Right · Droite · 右揃え',
       align: PrintAlign.right,
@@ -699,10 +704,10 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('RTL bold (Arabic):', styles: const TextStyles(bold: true));
+    ticket.text('RTL bold (Arabic):', style: const PrintTextStyle(bold: true));
     await ticket.textRaster(
       'مرحبا — نص عريض كبير',
-      textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       textDirection: TextDirection.rtl,
       align: PrintAlign.right,
     );
@@ -715,11 +720,11 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'BARCODES',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
 
-    ticket.text('EAN-13:', styles: const TextStyles(bold: true));
+    ticket.text('EAN-13:', style: const PrintTextStyle(bold: true));
     ticket.barcode(
       '590123412345',
       type: BarcodeType.ean13,
@@ -728,7 +733,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('EAN-8:', styles: const TextStyles(bold: true));
+    ticket.text('EAN-8:', style: const PrintTextStyle(bold: true));
     ticket.barcode(
       '9031101',
       type: BarcodeType.ean8,
@@ -737,7 +742,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('UPC-A:', styles: const TextStyles(bold: true));
+    ticket.text('UPC-A:', style: const PrintTextStyle(bold: true));
     ticket.barcode(
       '01234567890',
       type: BarcodeType.upcA,
@@ -746,7 +751,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('CODE 128:', styles: const TextStyles(bold: true));
+    ticket.text('CODE 128:', style: const PrintTextStyle(bold: true));
     ticket.barcode(
       '{BABCDEF12345',
       type: BarcodeType.code128,
@@ -755,7 +760,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
 
     ticket.emptyLines();
 
-    ticket.text('CODE 39:', styles: const TextStyles(bold: true));
+    ticket.text('CODE 39:', style: const PrintTextStyle(bold: true));
     ticket.barcode(
       'HELLO123',
       type: BarcodeType.code39,
@@ -770,21 +775,21 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'QR CODES',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
 
-    ticket.text('Small (size 3):', styles: const TextStyles(bold: true));
+    ticket.text('Small (size 3):', style: const PrintTextStyle(bold: true));
     ticket.qrcode('https://pub.dev', size: QRSize.size3);
 
     ticket.emptyLines();
 
-    ticket.text('Medium (size 5):', styles: const TextStyles(bold: true));
+    ticket.text('Medium (size 5):', style: const PrintTextStyle(bold: true));
     ticket.qrcode('https://pub.dev', size: QRSize.size5);
 
     ticket.emptyLines();
 
-    ticket.text('Large (size 8):', styles: const TextStyles(bold: true));
+    ticket.text('Large (size 8):', style: const PrintTextStyle(bold: true));
     ticket.qrcode('https://pub.dev', size: QRSize.size8, cor: QRCorrection.H);
 
     ticket.emptyLines();
@@ -792,7 +797,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'RASTER IMAGE',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.separator();
 
@@ -832,7 +837,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'BEEP TEST',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.beep(n: 5, duration: BeepDuration.beep100ms);
 
@@ -841,7 +846,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'OPEN CASH DRAWER TEST',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.openCashDrawer();
 
@@ -853,7 +858,7 @@ class _PrinterDemoPageState extends State<PrinterDemoPage> {
     ticket.text(
       'unified_esc_pos_printer',
       align: PrintAlign.center,
-      styles: const TextStyles(bold: true),
+      style: const PrintTextStyle(bold: true),
     );
     ticket.text(
       'Capabilities Demonstrated!',

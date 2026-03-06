@@ -15,7 +15,7 @@ export 'src/core/extensions.dart';
 export 'src/core/generator.dart';
 export 'src/core/print_column.dart';
 export 'src/core/qrcode.dart';
-export 'src/core/text_styles.dart';
+export 'src/core/print_text_styles.dart';
 export 'src/core/ticket.dart';
 export 'src/exceptions/printer_exception.dart';
 export 'src/manager/printer_manager.dart';

@@ -12,7 +12,7 @@ import 'enums.dart';
 import 'generator.dart';
 import 'print_column.dart';
 import 'qrcode.dart';
-import 'text_styles.dart';
+import 'print_text_styles.dart';
 
 /// High-level ESC/POS ticket builder.
 ///
@@ -23,7 +23,7 @@ import 'text_styles.dart';
 /// ```dart
 /// final profile = await CapabilityProfile.load();
 /// final ticket = Ticket(PaperSize.mm80, profile);
-/// ticket.text('Hello!', styles: TextStyles(bold: true), align: PrintAlign.center);
+/// ticket.text('Hello!', style: PrintTextStyle(bold: true), align: PrintAlign.center);
 /// await ticket.textRaster('欢迎光临！');
 /// await ticket.textRaster('مرحبا!', textDirection: ui.TextDirection.rtl);
 /// ticket.hr();
@@ -92,19 +92,19 @@ class Ticket {
   /// For multi-script text — Chinese, Japanese, Korean, Arabic, Devanagari,
   /// Thai, Cyrillic, etc. — use [textRaster] instead.
   ///
-  /// - [styles] — bold, underline, font, and other ESC/POS styles.
+  /// - [style] — bold, underline, font, and other ESC/POS style.
   /// - [align] — horizontal alignment of the text.
   /// - [linesAfter] — blank lines emitted after the text.
   /// - [maxCharsPerLine] — wraps text at this column count.
   ///
   /// Example:
   /// ```dart
-  /// ticket.text('Hello!', styles: TextStyles(bold: true));
+  /// ticket.text('Hello!', style: PrintTextStyle(bold: true));
   /// ticket.text('Total: \$9.99', align: PrintAlign.right);
   /// ```
   void text(
     String text, {
-    TextStyles styles = const TextStyles(),
+    PrintTextStyle style = const PrintTextStyle(),
     PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
@@ -112,7 +112,7 @@ class Ticket {
     _bytes.addAll(
       _gen.text(
         text,
-        styles: styles,
+        style: style,
         align: align,
         linesAfter: linesAfter,
         maxCharsPerLine: maxCharsPerLine,
@@ -127,7 +127,7 @@ class Ticket {
   /// The text is rendered line-by-line, keeping each `GS v 0` block small
   /// enough for the printer's receive buffer.
   ///
-  /// - [textStyle] — [TextStyle] controlling font size, weight, decoration,
+  /// - [style] — [TextStyle] controlling font size, weight, decoration,
   ///   etc. When omitted or when [TextStyle.fontSize] is `null`, the font
   ///   size defaults to **24 pt**.
   /// - [textDirection] — pass [ui.TextDirection.rtl] for Arabic, Hebrew, etc.
@@ -139,21 +139,21 @@ class Ticket {
   /// await ticket.textRaster('欢迎光临！');
   /// await ticket.textRaster(
   ///   'مرحبا بكم!',
-  ///   textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  ///   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
   ///   textDirection: ui.TextDirection.rtl,
   ///   align: PrintAlign.right,
   /// );
   /// ```
   Future<void> textRaster(
     String text, {
-    TextStyle? textStyle,
+    TextStyle? style,
     ui.TextDirection textDirection = ui.TextDirection.ltr,
     PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
   }) async {
     final lines = await renderTextLinesAsImages(
       text,
-      textStyle: textStyle,
+      style: style,
       maxWidth: _gen.paperSize.widthPixels.toDouble(),
       textDirection: textDirection,
     );
@@ -168,7 +168,7 @@ class Ticket {
   /// Print pre-encoded bytes as text.
   void textEncoded(
     Uint8List textBytes, {
-    TextStyles styles = const TextStyles(),
+    PrintTextStyle style = const PrintTextStyle(),
     PrintAlign align = PrintAlign.left,
     int linesAfter = 0,
     int? maxCharsPerLine,
@@ -176,7 +176,7 @@ class Ticket {
     return _bytes.addAll(
       _gen.textEncoded(
         textBytes,
-        styles: styles,
+        style: style,
         align: align,
         linesAfter: linesAfter,
         maxCharsPerLine: maxCharsPerLine,

@@ -1,8 +1,8 @@
 import 'enums.dart';
 
 /// Immutable text style configuration for ESC/POS printing.
-class TextStyles {
-  const TextStyles({
+class PrintTextStyle {
+  const PrintTextStyle({
     this.bold = false,
     this.reverse = false,
     this.underline = false,
@@ -14,7 +14,7 @@ class TextStyles {
   });
 
   /// All fields initialised to explicit defaults (including fontA and CP437).
-  const TextStyles.defaults({
+  const PrintTextStyle.defaults({
     this.bold = false,
     this.reverse = false,
     this.underline = false,
@@ -41,7 +41,7 @@ class TextStyles {
   /// Null means "use the printer default / global code table".
   final String? codeTable;
 
-  TextStyles copyWith({
+  PrintTextStyle copyWith({
     bool? bold,
     bool? reverse,
     bool? underline,
@@ -51,7 +51,7 @@ class TextStyles {
     FontType? fontType,
     String? codeTable,
   }) {
-    return TextStyles(
+    return PrintTextStyle(
       bold: bold ?? this.bold,
       reverse: reverse ?? this.reverse,
       underline: underline ?? this.underline,

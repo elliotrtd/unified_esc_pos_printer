@@ -11,7 +11,7 @@ A unified ESC/POS thermal printer package for Flutter. Supports USB, Bluetooth C
 - **Image printing** — Column format (ESC\*) and raster formats (GS v 0 / GS(L) with auto-resizing
 - **Barcodes** — UPC-A, UPC-E, EAN-13, EAN-8, CODE39, ITF, CODABAR, CODE128
 - **QR codes** — Native printer QR generation with 8 sizes and 4 error correction levels
-- **Text rasterization** — Print any script (CJK, Arabic RTL, Hindi, Thai, Korean, etc.) as Flutter-rendered images
+- **Text rasterization** — Print any script (Chinese, Japanese, Korean, Arabic RTL, etc.) as Flutter-rendered images
 - **Cash drawer** — Pin 2 and Pin 5 kick commands
 - **Beep** — Configurable buzzer count and duration
 - **Capability profiles** — 200+ built-in printer model profiles with code page mappings
@@ -45,7 +45,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  unified_esc_pos_printer: ^1.0.0
+  unified_esc_pos_printer: any
 ```
 
 ### Android Setup
@@ -104,7 +104,7 @@ final ticket = await Ticket.create(PaperSize.mm80);
 ticket.text(
   'Hello, Printer!',
   align: PrintAlign.center,
-  styles: const TextStyles(
+  style: const PrintTextStyle(
     bold: true,
     height: TextSize.size2,
     width: TextSize.size2,
@@ -124,14 +124,14 @@ manager.dispose();
 
 ```dart
 ticket.text('Normal text');
-ticket.text('Bold text', styles: const TextStyles(bold: true));
-ticket.text('Underline', styles: const TextStyles(underline: true));
-ticket.text('Reverse', styles: const TextStyles(reverse: true));
-ticket.text('Bold + Underline', styles: const TextStyles(bold: true, underline: true));
+ticket.text('Bold text', style: const PrintTextStyle(bold: true));
+ticket.text('Underline', style: const PrintTextStyle(underline: true));
+ticket.text('Reverse', style: const PrintTextStyle(reverse: true));
+ticket.text('Bold + Underline', style: const PrintTextStyle(bold: true, underline: true));
 
 // Size multipliers (1x–8x)
-ticket.text('Large', styles: const TextStyles(height: TextSize.size3, width: TextSize.size3));
-ticket.text('Tall only', styles: const TextStyles(height: TextSize.size3, width: TextSize.size1));
+ticket.text('Large', style: const PrintTextStyle(height: TextSize.size3, width: TextSize.size3));
+ticket.text('Tall only', style: const PrintTextStyle(height: TextSize.size3, width: TextSize.size1));
 
 // Alignment
 ticket.text('Left', align: PrintAlign.left);
@@ -139,8 +139,11 @@ ticket.text('Center', align: PrintAlign.center);
 ticket.text('Right', align: PrintAlign.right);
 
 // Font selection
-ticket.text('Font A', styles: const TextStyles(fontType: FontType.fontA));
-ticket.text('Font B', styles: const TextStyles(fontType: FontType.fontB));
+ticket.text('Font A', style: const PrintTextStyle(fontType: FontType.fontA));
+ticket.text('Font B', style: const PrintTextStyle(fontType: FontType.fontB));
+
+// Per-line code table override (must exist in the loaded capability profile)
+ticket.text('Café coûté 12,50 €', style: const PrintTextStyle(codeTable: 'CP1252'));
 ```
 
 ### Table Layouts
@@ -160,18 +163,18 @@ ticket.row([
 
 // 3-column layout with header
 ticket.row([
-  PrintColumn(text: 'Item', flex: 5, styles: const TextStyles(bold: true)),
+  PrintColumn(text: 'Item', flex: 5, style: const PrintTextStyle(bold: true)),
   PrintColumn(
     text: 'Qty',
     flex: 3,
     align: PrintAlign.center,
-    styles: const TextStyles(bold: true),
+    style: const PrintTextStyle(bold: true),
   ),
   PrintColumn(
     text: 'Total',
     flex: 4,
     align: PrintAlign.right,
-    styles: const TextStyles(bold: true),
+    style: const PrintTextStyle(bold: true),
   ),
 ]);
 ```
@@ -242,8 +245,8 @@ For scripts not supported by the printer's built-in character tables (CJK, Arabi
 
 ```dart
 await ticket.textRaster('欢迎光临，谢谢惠顾！');       // Chinese
-await ticket.textRaster('ようこそ、ありがとう！');       // Japanese
-await ticket.textRaster('환영합니다, 감사합니다!');       // Korean
+await ticket.textRaster('ようこそ、ありがとう！');     // Japanese
+await ticket.textRaster('환영합니다, 감사합니다!');    // Korean
 await ticket.textRaster('स्वागत है, धन्यवाद!');          // Hindi
 
 // RTL support
@@ -256,7 +259,7 @@ await ticket.textRaster(
 // Custom styling
 await ticket.textRaster(
   'Large Bold Text',
-  textStyle: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+  style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
   align: PrintAlign.center,
 );
 ```
@@ -385,7 +388,7 @@ await manager.printBytes([0x1B, 0x40]);
 | `PrinterManager`         | Unified facade for scanning, connecting, printing, and cash drawer control                                 |
 | `Ticket`                 | High-level ticket builder — text, images, barcodes, QR codes, tables                                       |
 | `Generator`              | Low-level ESC/POS command generator returning raw byte sequences                                           |
-| `TextStyles`             | Immutable text style configuration (bold, underline, size, font)                                           |
+| `PrintTextStyle`         | Immutable text style configuration (bold, underline, size, font)                                           |
 | `PrintColumn`            | Column definition for table rows with flex-based sizing                                                    |
 | `CapabilityProfile`      | Printer capability and code page profile loader                                                            |
 | `PrinterDevice`          | Abstract base for `NetworkPrinterDevice`, `BlePrinterDevice`, `BluetoothPrinterDevice`, `UsbPrinterDevice` |
@@ -410,7 +413,12 @@ The package bundles capability profiles for 200+ thermal printer models, each de
 final ticket = await Ticket.create(PaperSize.mm80);
 
 // Or load a specific profile
-final profile = await CapabilityProfile.load('default');
+final profile = await CapabilityProfile.load(
+  'Generic',
+  jsonString: '{"profiles":{"default":{"vendor":"Generic","name":"Generic",'
+              '"description":"Generic ESC/POS","codePages":{"0":"CP437"}}}}',
+);
+
 final ticket = Ticket(PaperSize.mm80, additionalProfile: profile);
 ```
 

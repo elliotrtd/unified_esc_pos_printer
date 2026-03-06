@@ -1,3 +1,10 @@
+## 3.0.0
+
+- BREAKING: Rename `TextStyles` to `PrintTextStyle`
+- BREAKING: Rename `styles` parameter to `style` in ticket/generator APIs and `PrintColumn`
+- BREAKING: Rename `textStyle` to `style` in `Ticket.textRaster(...)` and `renderTextLinesAsImages(...)`
+- Update README and example app to use the new names
+
 ## 2.0.0
 
 - BREAKING: Remove `align` from `TextStyles`
@@ -23,3 +30,5 @@
 ## 1.0.0
 
 - Initial release.
+
+
