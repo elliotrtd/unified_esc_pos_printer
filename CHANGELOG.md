@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Fix iOS BLE scan stream handler by using explicit `BleScanStreamHandler` when setting the stream handler for the BLE scan event channel ([#1](https://github.com/elrizwiraswara/unified_esc_pos_printer/issues/1))
+
 ## 3.0.0
 
 - BREAKING: Rename `TextStyles` to `PrintTextStyle`
@@ -30,5 +34,3 @@
 ## 1.0.0
 
 - Initial release.
-
-
